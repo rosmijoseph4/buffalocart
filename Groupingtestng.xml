@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <groups>
+        <run>
+            <include name="smoke"/>
+            <include name="regression"/>
+        </run>
+    </groups>
+    <test name="functionaltest">
+        <classes>
+            <class name="com.buffalocart.testscripts.HomePageTest">
+                <methods>
+                    <include name="Verify_home_page_tilte"/>
+                    <include name="Verify_date_displeyed_in_home_page"/>
+                    <include name="Verify_whether_user_is_navigating_to_login_page_by_clicking_on_Sign_out_button"/>
+                </methods>
+            </class>
+            <class name="com.buffalocart.testscripts.LoginPageTest">
+                <methods>
+                    <include name="verify_Login_Page_Title"/>
+                    <include name="verify_user_login_with_valid_user_credentials"/>
+                    <include name="verify_the_error_message_displayed_for_user_login_with_invalid_credentials"/>
+                    <include name="verify_whetehr_the_user_is_able_to_click_on_Remember_me_checkbox"/>
+                </methods>
+            </class>
+            <class name="com.buffalocart.testscripts.ResetPasswordTest">
+                <methods>
+                    <include name="Verify_error_meesage_displyed_on_Reset_Password_page_with_invalid_email_id"/>
+                </methods>
+            </class>
+            <class name="com.buffalocart.testscripts.UsersPageTest">
+                <methods>
+                    <include name="verify_Users_page_title"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
