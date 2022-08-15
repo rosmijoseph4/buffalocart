@@ -95,10 +95,10 @@ import java.util.Set;
         js.executeScript(script);
     }
 
-    //    public void enterValueUsingJavascript(WebDriver driver,String script){
-//        JavascriptExecutor js=(JavascriptExecutor) driver;
-//        js.executeScript(script);
-    //
+    public void clickUsingJavaScript(WebDriver driver,WebElement element){
+        JavascriptExecutor executor= (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();",element);
+    }
     public String getWindowId(WebDriver driver) {
         String value = driver.getWindowHandle();
         return value;
@@ -117,6 +117,10 @@ import java.util.Set;
         Alert al = driver.switchTo().alert();
         al.accept();
     }
+        public void promptAlertAcceptDemo(WebDriver driver) {
+            Alert al = driver.switchTo().alert();
+            al.accept();
+        }
 
     public void simpleAlertDismissDemo(WebDriver driver) {
         Alert al = driver.switchTo().alert();

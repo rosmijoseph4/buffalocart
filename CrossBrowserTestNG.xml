@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <listeners>
-        <listener class-name="com.buffalocart.ExtentReportListner.ExtentReportListner"></listener>
-    </listeners>
-    <test name="functionaltest">
+    <test name="Chrometest">
+        <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="com.buffalocart.testscripts.HomePageTest">
                 <methods>
@@ -14,6 +12,11 @@
                     <include name="verify_the_Usermangement_sub_tabs"/>
                 </methods>
             </class>
+            </classes>
+    </test>
+    <test name="Edgetest1">
+        <parameter name="browser" value="edge"/>
+        <classes>
             <class name="com.buffalocart.testscripts.LoginPageTest">
                 <methods>
                     <include name="verify_Login_Page_Title"/>

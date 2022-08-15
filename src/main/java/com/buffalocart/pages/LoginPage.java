@@ -31,18 +31,32 @@ import org.openqa.selenium.support.PageFactory;
     @FindBy(xpath = "//a[@class='btn btn-link']")
     WebElement link;
 
-
+        @FindBy(xpath = "//li[@class='dropdown user user-menu']//a[@class='dropdown-toggle']")
+        WebElement userName1;
 
     public String getLoginPageTitle(){
         String title= page.getPageTitle(driver);
         return title;
     }
-    public void enterUsername(String uname){
-        page.enterText(userName,uname);
+    public void enterUsername1(String u_name){
+         //wait.hardWait(10000);
+        //wait.waitUntilVisibilityOfElement(20,driver,userName);
+        page.enterText(userName,u_name);
     }
-    public void enterPassword(String pass){
-        page.enterText(password,pass);
+    public void enterPassword1(String pass_word)
+    {
+       // wait.waitUntilVisibilityOfElement(20,driver,password);
+        page.enterText(password,pass_word);
     }
+        public void enterUsername(String uname){
+           // wait.hardWait(10000);
+            page.enterText(userName,uname);
+        }
+        public void enterPassword(String pass)
+        {
+            page.enterText(password,pass);
+        }
+
 
     public String getErrorMessage() {
        String message= page.getElementText(errorMessage);
@@ -59,10 +73,13 @@ import org.openqa.selenium.support.PageFactory;
         }
     }
     public HomePage clickOnLoginButton(){
+        //wait.waitUntilVisibilityOfElement(20,driver,loginButton);
         page.clickOnElement(loginButton);
-       // wait.waitUntilVisibilityOfElement(20,driver,loginButton);
+        //wait.waitUntilVisibilityOfElement(20,driver,loginButton);
         return new HomePage(driver);
     }
+
+
     public LoginPage clickOnInvalidLoginButton(){
         page.clickOnElement(loginButton);
         return new LoginPage(driver);
@@ -71,4 +88,6 @@ import org.openqa.selenium.support.PageFactory;
           page.clickOnElement(link);
         return new ResetPasswordPage(driver);
     }
+
+
 }

@@ -13,7 +13,7 @@ public class ResetPasswordTest extends Base {
     ResetPasswordPage resetPasswordPage;
     FakerUtility fakerUtility;
     ExcelUtility excelUtility;
-    @Test(priority = 5,description = "TC_005 Verify error meesage displyed on  Reset Password page with invalid email id",groups = {"smoke","regression"})
+    @Test(priority = 5,description = "TC_005 Verify error meesage displyed on  Reset Password page with invalid email id",groups = {"regression"})
     public void Verify_error_meesage_displyed_on_Reset_Password_page_with_invalid_email_id(){
         loginPage=new LoginPage(driver);
         resetPasswordPage=loginPage.clickOnForgotPassword();
@@ -23,9 +23,7 @@ public class ResetPasswordTest extends Base {
         resetPasswordPage.enterEmailId(mail);
         resetPasswordPage.clickOnResetLinkButton();
         String actualerrormessage=resetPasswordPage.getResetErrorMessage();
-        System.out.println(actualerrormessage);
         String expectederrormessage= excelUtility.readSingleData(1,0,"resetpasswordpage");
-        System.out.println(expectederrormessage);
         Assert.assertEquals(actualerrormessage,expectederrormessage,"Error:Message not displayed");
     }
 }

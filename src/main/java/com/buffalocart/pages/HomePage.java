@@ -5,17 +5,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-    public class HomePage extends ObjectUtility{
+public class HomePage extends ObjectUtility {
     public WebDriver driver;
-    public HomePage(WebDriver driver){
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
-    }
-    @FindBy(xpath = "//span[text()='Aju Mathew']")
-            WebElement loggedinName;
 
-    @FindBy(xpath="//a[@class='logo']//span")
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+
+    @FindBy(xpath = "//li[@class='dropdown user user-menu']//a//span")
+    WebElement loggedinName;
+
+
+    @FindBy(xpath = "//a[@class='logo']//span")
     WebElement homeTitle;
 
     @FindBy(xpath = "//div[@class='m-8 pull-left mt-15 hidden-xs']//strong")
@@ -26,50 +33,63 @@ import org.openqa.selenium.support.PageFactory;
 
     @FindBy(xpath = "//button[@class='btn btn-default btn-sm']")
     WebElement endTour;
-    @FindBy(xpath =" //span[text()='User Management']" )
+
+    @FindBy(xpath = " //span[text()='User Management']")
     WebElement userManagement;
 
-    //@FindBy(xpath ="\" //span[text()='Users'" )
-    @FindBy(xpath = "//*[normalize-space(text())='Users']")
-    WebElement users;
+    @FindBy(xpath = "//ul[@class='treeview-menu menu-open']//span[@class='title']")
+    List<WebElement> userManagementOptions;
 
-    @FindBy(xpath = "//*[normalize-space(text())='Roles']")
-    WebElement roles;
-
-    @FindBy(xpath = "//*[normalize-space(text())='Sales Commission Agents']")
-    WebElement sales;
-
-
-
-    public Boolean getUser(){
-        page.getElementsDisplayed(users);
-        //page.getElementIsEnabled(users);
-        return true;
-    }
-    public Boolean getRoles(){
-        page.getElementsDisplayed(roles);
-        //page.getElementIsEnabled(roles);
-        return true;
-    }
-    public Boolean getSales(){
-        page.getElementsDisplayed(sales);
-       // page.getElementIsEnabled(sales);
-        return true;
+    public List<String> getUserManagementOptions() {
+        List<String> values = new ArrayList<String>();
+        for (int i = 0; i < userManagementOptions.size(); i++) {
+            wait.waitUntilVisibilityOfElement(100, driver, userManagementOptions.get(i));
+            values.add(page.getElementText(userManagementOptions.get(i)));
+        }
+        return values;
     }
 
-    public HomePage clickOnUserManagement(){
+    public UsersPage clickOnUserMenu() {
+        for (int i = 0; i < userManagementOptions.size(); i++) {
+            wait.waitUntilVisibilityOfElement(100, driver, userManagementOptions.get(i));
+            String value = page.getElementText(userManagementOptions.get(i));
+            if (value.equalsIgnoreCase("Users")) {
+                page.clickOnElement(userManagementOptions.get(i));
+            }
+        }
+        return new UsersPage(driver);
+    }
+
+    public RolesPage clickOnRoles() {
+        for (int i = 0; i < userManagementOptions.size(); i++) {
+            wait.waitUntilVisibilityOfElement(100, driver, userManagementOptions.get(i));
+            String value = page.getElementText(userManagementOptions.get(i));
+            if (value.equalsIgnoreCase("Roles")) {
+                page.clickOnElement(userManagementOptions.get(i));
+            }
+        }
+        return new RolesPage(driver);
+    }
+
+    public SalesPage clickOnSalesCommission() {
+        for (int i = 0; i < userManagementOptions.size(); i++) {
+            wait.waitUntilVisibilityOfElement(100, driver, userManagementOptions.get(i));
+            String value = page.getElementText(userManagementOptions.get(i));
+            if (value.equalsIgnoreCase("Sales Commission Agents")) {
+                page.clickOnElement(userManagementOptions.get(i));
+            }
+        }
+        return new SalesPage(driver);
+    }
+
+
+    public HomePage clickOnUserManagement() {
+        wait.waitUntilVisibilityOfElement(20, driver, userManagement);
         page.clickOnElement(userManagement);
-        wait.waitUntilVisibilityOfElement(20,driver,userManagement);
+        wait.hardWait(10000);
         return new HomePage(driver);
 
     }
-    public UsersPage clickOnUsers(){
-        page.clickOnElement(users);
-        wait.waitUntilVisibilityOfElement(20,driver,users);
-        return new UsersPage(driver);
-
-    }
-
 
     public HomePage enterButtonEndTour(){
         page.clickOnElement(endTour);
@@ -94,6 +114,7 @@ import org.openqa.selenium.support.PageFactory;
         return new HomePage(driver);
     }
     public LoginPage clickOnSignoutButton(){
+        //wait.waitUntilVisibilityOfElement(20,driver,signoutButton);
         page.clickOnElement(signoutButton);
         return new LoginPage(driver);
     }
