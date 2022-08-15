@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelUtility {
     public String readSingleData(int i, int j,String sheetname)  {
@@ -92,6 +94,35 @@ public class ExcelUtility {
 
         return c.getStringCellValue();
 
+    }
+    public List<String> getExcelAsArrayList(String sheetName){
+        String filepath = System.getProperty("user.dir") + "\\src\\main\\resources\\loginpage.xlsx";
+        FileInputStream file = null;
+        try {
+            file = new FileInputStream(filepath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        XSSFWorkbook workbook = null;
+        try {
+            workbook = new XSSFWorkbook(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        XSSFSheet sheet = workbook.getSheet(sheetName);
+        int rowCount = sheet.getLastRowNum();
+        int cellCount = sheet.getRow(0).getLastCellNum();
+        List<String> values=new ArrayList<String>();
+        for (int i = 0; i <= rowCount; i++) {
+            Row r = sheet.getRow(i);
+            for (int j = 0; j < cellCount; j++) {
+                Cell c = r.getCell(j);
+                DataFormatter formatter = new DataFormatter();
+                values.add (formatter.formatCellValue(sheet.getRow(i).getCell(j)));
+            }
+
+        }
+        return values;
     }
 
 }

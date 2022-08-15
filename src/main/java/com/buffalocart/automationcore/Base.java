@@ -84,6 +84,6 @@ public class Base {
             FileUtils.copyFile(screenshot,new File("./Screenshots/"+result.getName()+".png"));
         }
 
-       driver.quit();
+       //driver.quit();
     }
 }
